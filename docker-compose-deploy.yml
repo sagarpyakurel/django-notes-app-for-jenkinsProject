@@ -1,7 +1,7 @@
 services:
 
   django_app:
-    image: YOUR_DOCKERHUB_USERNAME/django_app:latest
+    image: sagarpyakurel01/django_app:latest
     container_name: django_cont
     ports:
       - "8000:8000"
