@@ -1,0 +1,25 @@
+services:
+
+  django_app:
+    image: YOUR_DOCKERHUB_USERNAME/django_app:latest
+    container_name: django_cont
+    ports:
+      - "8000:8000"
+    command: sh -c "python manage.py migrate --noinput && gunicorn notesapp.wsgi --bind 0.0.0.0:8000"
+    env_file:
+      - ".env"
+    restart: always
+
+  db:
+    image: mysql
+    container_name: db_cont
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test_db
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - notes-app-nw
+
+networks:
+  notes-app-nw:
